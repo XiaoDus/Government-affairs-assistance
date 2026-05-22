@@ -47,7 +47,7 @@ def get_base_url():
     """从配置文件获取服务器基础URL"""
     config = load_config()
     host = config.get('server_host', 'your_server_ip_here')
-    port = config.get('server_port', '39999')
+    port = config.get('server_port', 'your_server_port_here')
     return f'https://{host}:{port}'
 
 def select_file_and_token():

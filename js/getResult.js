@@ -3,7 +3,7 @@ const https = require('https');
 // 服务器配置 - 请修改为您的服务器地址
 const SERVER_CONFIG = {
   host: 'your_server_ip_here',
-  port: '39999'
+  port: 'your_server_port_here'
 };
 
 // 获取基础URL
