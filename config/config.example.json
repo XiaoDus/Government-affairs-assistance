@@ -1,0 +1,7 @@
+{
+  "_comment": "配置文件示例，请复制为 config.json 并填入实际值",
+  "server_host": "192.168.1.1",
+  "server_port": "39999",
+  "token": "your_access_token_here",
+  "default_save_path": "D:/导出数据"
+}

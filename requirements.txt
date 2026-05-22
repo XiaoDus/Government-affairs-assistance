@@ -1,0 +1,21 @@
+# 政务协助系统依赖
+# Government Affairs Assistance System Dependencies
+
+# HTTP请求
+requests>=2.28.0
+urllib3>=1.26.0
+
+# 数据处理
+pandas>=1.5.0
+openpyxl>=3.0.10
+
+# Word文档处理
+python-docx>=0.8.11
+
+# GUI界面（tkinter为Python内置，无需安装）
+# tkinter
+
+# 开发依赖（可选）
+# pytest>=7.0.0
+# black>=22.0.0
+# flake8>=5.0.0
