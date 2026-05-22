@@ -43,6 +43,13 @@ def save_config(config):
     with open(config_file, 'w', encoding='utf-8') as f:
         json.dump(config, f, ensure_ascii=False, indent=2)
 
+def get_base_url():
+    """从配置文件获取服务器基础URL"""
+    config = load_config()
+    host = config.get('server_host', 'your_server_ip_here')
+    port = config.get('server_port', '39999')
+    return f'https://{host}:{port}'
+
 def select_file_and_token():
     config = load_config()
     current_default = config.get('default_save_path', DEFAULT_SAVE_PATH)
@@ -129,7 +136,7 @@ def get_department_id(department_name):
     return None
 
 def add_return_visit(token, issue_id, circulation_id, department_name):
-    url = "https://59.215.230.158:39999/event-center/api/circulation/returnVisit"
+    url = f"{get_base_url()}/event-center/api/circulation/returnVisit"
     
     visit_dept_id = get_department_id(department_name)
     if not visit_dept_id:

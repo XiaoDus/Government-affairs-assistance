@@ -72,6 +72,14 @@ def save_config(config):
     with open(CONFIG_FILE, 'w', encoding='utf-8') as f:
         json.dump(config, f, ensure_ascii=False, indent=2)
 
+# 获取服务器基础URL
+def get_base_url():
+    """从配置文件获取服务器基础URL"""
+    config = load_config()
+    host = config.get('server_host', 'your_server_ip_here')
+    port = config.get('server_port', '39999')
+    return f'https://{host}:{port}'
+
 # 文件类型映射
 def get_file_type(file_path):
     """
@@ -103,7 +111,7 @@ def upload_file(file_path, token):
     :return: 上传结果
     """
     # 上传URL
-    url = 'https://59.215.230.158:39999/sys/common/upload'
+    url = f'{get_base_url()}/sys/common/upload'
     
     # 准备请求头
     headers = {
@@ -138,7 +146,7 @@ def update_progress(issue_id, circulation_id, opinion, attachment_list, token):
     :return: 更新结果
     """
     # API URL
-    url = 'https://59.215.230.158:39999/event-center/api/circulation/updateProgress'
+    url = f'{get_base_url()}/event-center/api/circulation/updateProgress'
     
     # 准备请求头
     headers = {

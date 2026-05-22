@@ -1,10 +1,21 @@
 const https = require('https');
 
-const url = "https://59.215.230.158:39999/event-center/homePage/getMyTodoList?_t=1775123755&pageNo=1&pageSize=1000&sort=createTime&order=descend&serialNumber=&subject=";
+// 服务器配置 - 请修改为您的服务器地址
+const SERVER_CONFIG = {
+  host: 'your_server_ip_here',
+  port: '39999'
+};
+
+// 获取基础URL
+function getBaseUrl() {
+  return `https://${SERVER_CONFIG.host}:${SERVER_CONFIG.port}`;
+}
+
+const url = `${getBaseUrl()}/event-center/homePage/getMyTodoList?_t=${Date.now()}&pageNo=1&pageSize=1000&sort=createTime&order=descend&serialNumber=&subject=`;
 
 const options = {
   headers: {
-    'x-access-token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkZXB0SWQiOiIxNTc1MDY3Nzk5NjMyNTA2OTcxIiwiaWQiOiIxODcyNDY0NzE0MTE3OTgwMTYyIiwiZXhwIjoxNzc1MTE0MjAwLCJ1c2VybmFtZSI6IkR6ZnhtZ2pkIn0.4TLllNP_2L9lDa4qKdLCX9786H0SzN0RVrBv6W0fBzE'
+    'x-access-token': 'your_token_here'
   },
   rejectUnauthorized: false
 };
@@ -21,7 +32,7 @@ https.get(url, options, (res) => {
       // console.log(data);
       let list = JSON.parse(data).result.records;
       // console.log(list.length);
-      
+
       list.forEach(item => {
         delete item.id;
         delete item.otherId;
@@ -37,12 +48,12 @@ https.get(url, options, (res) => {
         delete item.statusForMe;
         delete item.typeName;
         delete item.nodeType;
-        
+
         // 当remainTime为null时，赋值为协办
         if (item.remainTime === null) {
           item.remainTime = '协办';
         }
-        
+
         console.log(item);
 
       });

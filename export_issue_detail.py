@@ -21,7 +21,16 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 config_file = 'config.json'
 
-API_URL = "https://59.215.230.158:39999/event-center/issueDetail/exportIssueDetail"
+def get_base_url():
+    """从配置文件获取服务器基础URL"""
+    config = load_config()
+    host = config.get('server_host', 'your_server_ip_here')
+    port = config.get('server_port', '39999')
+    return f'https://{host}:{port}'
+
+def get_api_url():
+    return f"{get_base_url()}/event-center/issueDetail/exportIssueDetail"
+
 DEFAULT_T = int(time.time())
 
 def load_config():
@@ -129,7 +138,7 @@ def select_file_and_save_path():
     return result
 
 def export_issue_detail(token, issue_id, save_dir, event_name):
-    url = f"{API_URL}?_t={DEFAULT_T}&id={issue_id}"
+    url = f"{get_api_url()}?_t={DEFAULT_T}&id={issue_id}"
 
     headers = {
         "x-access-token": token

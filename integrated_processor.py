@@ -27,6 +27,13 @@ def load_config():
             return json.load(f)
     return {}
 
+def get_base_url():
+    """从配置文件获取服务器基础URL"""
+    config = load_config()
+    host = config.get('server_host', 'your_server_ip_here')
+    port = config.get('server_port', '39999')
+    return f'https://{host}:{port}'
+
 def save_config(config):
     with open(CONFIG_FILE, 'w', encoding='utf-8') as f:
         json.dump(config, f, ensure_ascii=False, indent=2)
@@ -85,7 +92,7 @@ def get_new_token_dialog(current_token=""):
     return result
 
 def upload_file(file_path, token):
-    url = 'https://59.215.230.158:39999/sys/common/upload'
+    url = f'{get_base_url()}/sys/common/upload'
     headers = {'x-access-token': token}
     
     try:
@@ -103,10 +110,11 @@ def fetch_dispute_data(token, update_progress_callback=None):
     if update_progress_callback:
         update_progress_callback(0, 100, "步骤1/4: 从API获取矛盾纠纷数据...")
     
+    base_url = get_base_url()
     urls = [
-        ("矛盾纠纷", "https://59.215.230.158:39999/event-center/homePage/getMyTodoList?_t={}&pageNo=1&pageSize=1000&sort=createTime&order=descend&serialNumber=&subject=".format(datetime.datetime.now().timestamp())),
-        ("贵和码", "https://59.215.230.158:39999/event-center/homePage/getMyTodoList?_t={}&pageNo=1&pageSize=1000&pageType=2&sort=createTime&order=descend&serialNumber=&subject=".format(datetime.datetime.now().timestamp())),
-        ("矛盾纠纷登记", "https://59.215.230.158:39999/event-center/homePage/getMyTodoList?_t={}&pageNo=1&pageSize=1000&pageType=1&sort=createTime&order=descend&serialNumber=&subject=".format(datetime.datetime.now().timestamp()))
+        ("矛盾纠纷", f"{base_url}/event-center/homePage/getMyTodoList?_t={datetime.datetime.now().timestamp()}&pageNo=1&pageSize=1000&sort=createTime&order=descend&serialNumber=&subject="),
+        ("贵和码", f"{base_url}/event-center/homePage/getMyTodoList?_t={datetime.datetime.now().timestamp()}&pageNo=1&pageSize=1000&pageType=2&sort=createTime&order=descend&serialNumber=&subject="),
+        ("矛盾纠纷登记", f"{base_url}/event-center/homePage/getMyTodoList?_t={datetime.datetime.now().timestamp()}&pageNo=1&pageSize=1000&pageType=1&sort=createTime&order=descend&serialNumber=&subject=")
     ]
     
     all_data = []
@@ -162,7 +170,7 @@ def find_record_by_serial_number(serial_number):
     return None
 
 def update_progress_api(issue_id, circulation_id, opinion, token, attachment_list=None):
-    url = 'https://59.215.230.158:39999/event-center/api/circulation/updateProgress'
+    url = f'{get_base_url()}/event-center/api/circulation/updateProgress'
     headers = {
         'x-access-token': token,
         'Content-Type': 'application/json'

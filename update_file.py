@@ -36,6 +36,13 @@ def save_config(config):
     except Exception as e:
         print(f"保存配置文件失败: {e}")
 
+def get_base_url():
+    """从配置文件获取服务器基础URL"""
+    config = load_config()
+    host = config.get('server_host', 'your_server_ip_here')
+    port = config.get('server_port', '39999')
+    return f'https://{host}:{port}'
+
 def upload_file(file_path, token):
     """
     上传图片到服务器
@@ -44,7 +51,7 @@ def upload_file(file_path, token):
     :return: 上传结果
     """
     # 上传URL
-    url = 'https://59.215.230.158:39999/sys/common/upload'
+    url = f'{get_base_url()}/sys/common/upload'
     
     # 准备请求头
     headers = {
