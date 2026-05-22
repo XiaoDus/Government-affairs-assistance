@@ -46,7 +46,7 @@ font_size = Pt(16)  # 三号字体约为16磅
 config_file = 'config.json'
 
 # 默认保存路径
-DEFAULT_SAVE_PATH = r'E:\共享文件\\4杜兴海\\6、综治信息平台纠纷附件\\2026矛盾纠纷附件'
+DEFAULT_SAVE_PATH = 'your_save_path_here'  # 请在config.json中配置default_save_path
 
 # 加载配置
 def load_config():

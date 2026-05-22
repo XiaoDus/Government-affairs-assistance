@@ -20,7 +20,7 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 config_file = 'config.json'
-DEFAULT_SAVE_PATH = r'E:\共享文件\\4杜兴海\\6、综治信息平台纠纷附件\\2026矛盾纠纷附件'
+DEFAULT_SAVE_PATH = 'your_save_path_here'  # 请在config.json中配置default_save_path
 
 DEPARTMENTS = {
     "1575067821891678306": "金都社区",

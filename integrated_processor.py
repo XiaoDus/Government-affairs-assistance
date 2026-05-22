@@ -17,7 +17,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 CONFIG_FILE = 'config.json'
 DATA_FILE = 'dispute_data.json'
-DEFAULT_SAVE_PATH = r'E:\共享文件\\4杜兴海\\6、综治信息平台纠纷附件\\2026矛盾纠纷附件'
+DEFAULT_SAVE_PATH = 'your_save_path_here'  # 请在config.json中配置default_save_path
 font_name = '仿宋_GB2312'
 font_size = Pt(16)
 
