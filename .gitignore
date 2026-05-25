@@ -35,9 +35,18 @@ env/
 # PyInstaller
 *.spec
 
-# Local config
-config.json
+# Local config - 敏感配置
+config/config.json
 test.json
+api_response.json
+*.log
 
 # Excel temp files
 ~$*.xlsx
+
+# Downloaded data
+downloads/
+
+# OS
+.DS_Store
+Thumbs.db
