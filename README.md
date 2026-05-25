@@ -2,13 +2,12 @@
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Code Style](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
 
 ## 📋 项目简介
 
 本项目是一个**政务协助系统**，主要用于**矛盾纠纷数据的处理、导出和管理**。系统提供了多种实用工具，帮助政务工作人员高效地处理综治信息平台中的纠纷数据。
 
-## ✨ 新特性（v1.0 重构版）
+## ✨ 功能特性
 
 - 🏗️ **模块化架构**：代码结构清晰，易于维护和扩展
 - ⚙️ **统一配置管理**：集中式配置，支持配置验证
@@ -16,16 +15,20 @@
 - 🛠️ **工具函数库**：可复用的文件和UI工具
 - 🎨 **主界面入口**：统一的应用程序启动器
 - 📦 **依赖管理**：requirements.txt 规范依赖版本
+- 🔒 **安全设计**：敏感信息与代码分离
 
 ## 🎯 主要功能
 
-| 功能模块 | 说明 | 文件 |
-|---------|------|------|
-| 📊 综合数据处理器 | 集成化数据处理中心 | `src/modules/integrated_processor.py` |
-| 📤 纠纷详情导出 | 导出纠纷详情数据 | `src/modules/export_issue_detail.py` |
-| 📥 研判记录上传 | 批量上传研判记录 | `src/modules/update_progress.py` |
-| 🏢 回访部门管理 | 管理回访部门信息 | `src/modules/add_return_visit_department.py` |
-| 🌐 Web数据台账 | 基于Web的数据展示 | `web/矛盾纠纷数据台账.html` |
+| 功能模块 | 说明 |
+|---------|------|
+| 📊 综合数据处理器 | 集成化数据处理中心，支持数据导出、研判记录上传 |
+| 📤 纠纷详情导出 | 导出纠纷详情数据，支持批量操作 |
+| 📥 研判记录上传 | 批量上传研判记录，支持进度显示 |
+| 📥 批量下载附件 | 从Excel读取ID，批量下载事件附件 |
+| 📥 单个下载附件 | 下载指定纠纷的附件文件 |
+| 🏢 回访部门管理 | 管理回访部门信息 |
+| 🔄 数据合并 | 合并多个数据源 |
+| 🌐 Web数据台账 | 基于Web的数据展示和导出 |
 
 ## 🛠️ 技术栈
 
@@ -43,7 +46,7 @@
 
 ```
 Government-affairs-assistance/
-├── main.py                          # 主入口程序
+├── main.py                          # 🎯 主入口程序（推荐使用）
 ├── requirements.txt                 # 依赖列表
 ├── README.md                        # 项目说明
 ├── .gitignore                       # Git忽略配置
@@ -52,13 +55,13 @@ Government-affairs-assistance/
 │   ├── __init__.py
 │   ├── core/                        # 核心模块
 │   │   ├── __init__.py
-│   │   ├── config.py               # 配置管理
-│   │   └── api_client.py           # API客户端
+│   │   ├── config.py               # 配置管理类
+│   │   └── api_client.py           # API客户端封装
 │   │
 │   ├── utils/                       # 工具模块
 │   │   ├── __init__.py
-│   │   ├── file_utils.py           # 文件工具
-│   │   └── ui_utils.py             # UI工具
+│   │   ├── file_utils.py           # 文件操作工具
+│   │   └── ui_utils.py             # UI工具函数
 │   │
 │   └── modules/                     # 功能模块
 │       ├── __init__.py
@@ -66,24 +69,25 @@ Government-affairs-assistance/
 │       ├── export_issue_detail.py   # 导出纠纷详情
 │       ├── update_progress.py       # 上传研判记录
 │       ├── add_return_visit_department.py  # 回访部门管理
-│       ├── update_file.py           # 文件更新工具
-│       └── merged.py                # 数据合并工具
+│       ├── merged.py                # 数据合并工具
+│       └── update_file.py           # 文件更新工具
 │
 ├── config/                          # 配置目录
-│   ├── config.json                  # 主配置文件（需自行创建）
-│   └── config.example.json          # 配置示例
+│   └── config.json                  # ⚠️ 本地配置文件（不上传）
 │
 ├── web/                             # Web界面
-│   ├── 矛盾纠纷数据台账.html
+│   ├── 矛盾纠纷数据台账.html        # 数据台账页面
 │   └── js/
-│       ├── index.html
-│       └── getResult.js
+│       ├── index.html               # Web主页面
+│       └── getResult.js            # 数据获取脚本
 │
-├── assets/                          # 资源文件
-│   ├── icons/                       # 图标
-│   └── templates/                   # 模板文件
+├── js/                              # 前端资源
+│   ├── index.html
+│   └── getResult.js
 │
-└── docs/                            # 文档（可选）
+└── assets/                          # 资源文件
+    ├── icons/                       # 图标目录
+    └── templates/                   # 模板目录
 ```
 
 ## 🚀 快速开始
@@ -91,7 +95,7 @@ Government-affairs-assistance/
 ### 1. 环境要求
 
 - Python 3.8+
-- Windows操作系统（部分功能依赖Windows路径）
+- Windows操作系统
 
 ### 2. 安装依赖
 
@@ -101,18 +105,13 @@ pip install -r requirements.txt
 
 ### 3. 配置项目
 
-1. 复制配置示例文件：
-   ```bash
-   copy config/config.example.json config/config.json
-   ```
-
-2. 编辑 `config/config.json`，填入实际值：
+1. 编辑 `config/config.json`，填入实际值：
    ```json
    {
-     "server_host": "192.168.1.1",
-     "server_port": "39999",
-     "token": "your_access_token_here",
-     "default_save_path": "D:/导出数据"
+     "server_host": "your_server_ip_here",
+     "server_port": "your_server_port_here",
+     "token": "your_token_here",
+     "default_save_path": "your_save_path_here"
    }
    ```
 
@@ -130,59 +129,74 @@ python main.py
 
 ```bash
 # 综合数据处理器
-python -c "from src.modules.integrated_processor import main; main()"
+python integrated_processor.py
 
 # 导出纠纷详情
-python -c "from src.modules.export_issue_detail import main; main()"
+python export_issue_detail.py
 
 # 上传研判记录
-python -c "from src.modules.update_progress import main; main()"
+python update_progress.py
+
+# 批量下载附件
+python batch_download_attachments.py
+
+# 单个下载附件
+python download_attachments.py
 
 # 回访部门管理
-python -c "from src.modules.add_return_visit_department import main; main()"
+python add_return_visit_department.py
+
+# 数据合并
+python merged.py
 ```
 
 ## ⚙️ 配置说明
 
 配置文件位于 `config/config.json`，包含以下字段：
 
-| 字段 | 说明 | 示例 |
-|-----|------|------|
-| `server_host` | 服务器IP地址 | `"192.168.1.1"` |
-| `server_port` | 服务器端口 | `"39999"` |
-| `token` | API访问令牌 | `"eyJ0eXAiOiJKV1Qi..."` |
-| `default_save_path` | 默认保存路径 | `"D:/导出数据"` |
+| 字段 | 说明 | 占位符 |
+|-----|------|--------|
+| `server_host` | 服务器IP地址 | `your_server_ip_here` |
+| `server_port` | 服务器端口 | `your_server_port_here` |
+| `token` | API访问令牌 | `your_token_here` |
+| `default_save_path` | 默认保存路径 | `your_save_path_here` |
 
 ## 🔒 安全说明
 
 - ✅ 所有敏感信息（IP、端口、Token、路径）已从代码中移除
 - ✅ 使用占位符 `your_*_here`，需在配置文件中设置实际值
-- ✅ 支持HTTPS请求（已禁用证书验证警告）
-- ⚠️ 请勿将包含真实配置的 `config.json` 提交到代码仓库
+- ✅ `config/config.json` 已在 `.gitignore` 中排除，不会上传到代码仓库
+- ✅ 支持HTTPS请求
 
 ## 📝 使用说明
 
 ### 导出纠纷详情
 
-1. 运行主程序 `python main.py`
-2. 点击"📤 导出纠纷详情"按钮
-3. 输入有效的Token
-4. 选择保存路径
-5. 点击导出按钮
+1. 运行 `python export_issue_detail.py`
+2. 输入有效的Token
+3. 选择保存路径
+4. 点击导出按钮
 
 ### 上传研判记录
 
-1. 运行主程序 `python main.py`
-2. 点击"📥 上传研判记录"按钮
-3. 选择Excel文件
-4. 系统将自动处理并上传数据
-5. 查看进度条了解处理进度
+1. 运行 `python update_progress.py`
+2. 选择Excel文件（一级/二级研判记录表）
+3. 系统将自动处理并上传数据
+4. 查看进度条了解处理进度
 
-### 数据台账查看
+### 批量下载附件
 
-1. 运行主程序 `python main.py`
-2. 点击"🌐 打开数据台账"按钮
-3. 或直接在浏览器中打开 `web/矛盾纠纷数据台账.html`
+1. 运行 `python batch_download_attachments.py`
+2. 选择包含纠纷ID的Excel文件
+3. 选择保存位置
+4. 输入Token（可选保存）
+5. 系统自动下载所有附件
+
+### 数据台账
+
+1. 在浏览器中打开 `矛盾纠纷数据台账.html` 或 `web/矛盾纠纷数据台账.html`
+2. 点击按钮获取数据
+3. 支持图表展示和数据导出
 
 ## 🏗️ 架构说明
 
@@ -199,6 +213,16 @@ python -c "from src.modules.add_return_visit_department import main; main()"
 ### 功能模块 (`src/modules/`)
 
 各业务功能的具体实现，通过导入核心模块和工具模块复用代码。
+
+## 📦 依赖说明
+
+```
+requests>=2.28.0          # HTTP请求
+urllib3>=1.26.0           # URL处理
+pandas>=1.5.0             # 数据处理
+openpyxl>=3.0.10          # Excel操作
+python-docx>=0.8.11       # Word文档
+```
 
 ## 🤝 贡献指南
 
